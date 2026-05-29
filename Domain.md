@@ -98,9 +98,10 @@
 
 ## Интерфейсы репозиториев (контракты)
 
-Интерфейсы работают именно с доменными моделями
+Интерфейсы работают именно с доменными моделями  
 Методы репозиторев делаем асинхронными
 
+```cs
 interface ITransactionRepository {
     Transaction? GetById(Guid id, bool includeDeleted = false);
     IEnumerable<Transaction> GetByFilter(TransactionFilter filter);
@@ -118,6 +119,7 @@ interface ITagRepository {
     void Update(Tag tag);
     void Delete(Guid id);
 }
+```
 
 // Аналогично для ICategoryRepository, IScopeRepository, ICompensationRepository, IInternalTransferRepository
 
