@@ -26,7 +26,7 @@
 | ScopeId             | Guid?        | Нет | Ссылка на группу (scope) – транзакция может быть только в одном scope |
 | IsDeleted           | bool         | Да | Мягкое удаление. По умолчанию false. |
 | CreatedAt           | DateTime     | Да | Дата создания записи в системе |
-| UpdatedAt           | DateTime?    | Нет | Дата последнего изменения |
+| UpdatedAt           | DateTime     | Да | Дата последнего изменения |
 | IsForeignCurrency   | bool         | Да | true, если валюта операции не RUB. Такие транзакции исключаются из основного анализа. |
 | Metadata            | json         | Нет | Дополнительные пары ключ-значение (MCC, кэшбэк и пр.) |
 | **TransactionType** | string       | **Вычисляемое** | Хранится в БД, автоматически пересчитывается при вставке/обновлении по правилам:<br>• Если транзакция участвует в любом InternalTransfer → `InternalTransfer`<br>• Иначе если Amount > 0 → `Income`<br>• Иначе (Amount < 0) → `Expense` |
@@ -107,7 +107,7 @@ interface ITransactionRepository {
     IEnumerable<Transaction> GetByFilter(TransactionFilter filter);
     void Add(Transaction transaction);
     void Update(Transaction transaction);
-    void SoftDelete(Guid id);
+    void Delete(Guid id);
     void Restore(Guid id);
 }
 
